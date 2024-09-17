@@ -15,7 +15,8 @@ class DarkModeLoader:
                 str(Path.joinpath(Path(__file__).resolve().parent, "static"))
             ]
         else:
-            self.config.html_static_path.append(
+            self.config.html_static_path.insert(
+                0,
                 str(Path.joinpath(Path(__file__).resolve().parent, "static"))
             )
 
@@ -41,16 +42,17 @@ class DarkModeLoader:
             ]
         else:
             self.config.html_js_files.append(
+                0,
                 "dark_mode_js/default_{default_theme}.js".format(
                     default_theme=default_theme
                 )
             )
-            self.config.html_js_files.append("dark_mode_js/theme_switcher.js")
+            self.config.html_js_files.append(1, "dark_mode_js/theme_switcher.js")
 
     def load_css(self):
         if "css_files" in self.config.html_context:
-            self.config.html_context["css_files"].append("_static/dark_mode_css/general.css")
-            self.config.html_context["css_files"].append("_static/dark_mode_css/dark.css")
+            self.config.html_context["css_files"].append(0, "_static/dark_mode_css/general.css")
+            self.config.html_context["css_files"].append(1, "_static/dark_mode_css/dark.css")
             return
 
         if not self.config.html_css_files:
@@ -59,5 +61,5 @@ class DarkModeLoader:
                 "dark_mode_css/dark.css",
             ]
         else:
-            self.config.html_css_files.append("dark_mode_css/general.css")
-            self.config.html_css_files.append("dark_mode_css/dark.css")
+            self.config.html_css_files.append(0, "dark_mode_css/general.css")
+            self.config.html_css_files.append(1, "dark_mode_css/dark.css")
